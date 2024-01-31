@@ -3,12 +3,31 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/bearer": "^0.8.0",
+    "@elysiajs/cookie": "^0.8.0",
+    "@elysiajs/jwt": "^0.8.0",
+    "@elysiajs/swagger": "^0.8.3",
+    "@opentelemetry/api": "^1.7.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.40.3",
+    "@opentelemetry/exporter-collector": "^0.25.0",
+    "@opentelemetry/exporter-jaeger": "^1.20.0",
+    "@opentelemetry/exporter-prometheus": "^0.47.0",
+    "@opentelemetry/propagator-ot-trace": "^0.27.1",
+    "@opentelemetry/sdk-node": "^0.47.0",
+    "@opentelemetry/tracing": "^0.24.0",
+    "axios": "^1.6.5",
+    "dgram": "^1.0.1",
+    "elysia": "latest",
+    "jaeger-client": "^3.19.0",
+    "opentelemetry": "^0.1.0",
+    "opentelemetry-instrumentation-express": "^0.40.0",
+    "opentelemetry-resource-detector-service": "^0.29.0"
   },
   "devDependencies": {
+    "@types/bun": "^1.0.3",
     "bun-types": "latest"
   },
   "module": "src/index.js"
