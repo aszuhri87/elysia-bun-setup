@@ -2,16 +2,16 @@ import { Elysia, t } from "elysia";
 import { configureNotesRoutes } from "./routes/NotesRoute";
 import { configureCustomerRoutes } from "./routes/CustomerRoute";
 import * as api from '@opentelemetry/api';
-// import initializeTracing from "./tracer";
-// const tracer = initializeTracing("elysia-server")
 import { jwt } from "@elysiajs/jwt";
 import { cookie } from "@elysiajs/cookie";
 
 const randomNumber = (min: number, max: number) => Math.floor(Math.random() * max + min);
 
 import {init}  from "./tracer";
+// import initializeTracing from "./tracer";
+// const tracer = initializeTracing("elysia-server")
 
-const tracer = init('elysia-service', 4318) // calling tracer with service name and environment to view in jaegerui
+// const tracer = init('elysia-service', 4318) // calling tracer with service name and environment to view in jaegerui
 
 
 import { swagger } from "@elysiajs/swagger";
@@ -19,10 +19,6 @@ import bearer from "@elysiajs/bearer";
 import { auth } from "./handler/auth";
 
 const app = new Elysia();
-
-function getRandomNumber(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
 
 app.use(
   jwt({
@@ -35,7 +31,6 @@ app.use(
 .use(bearer())
 
 app.use(swagger());
-
 
 app.trace(async ({ handle }) => {
   const { time, end } = await handle
@@ -72,8 +67,8 @@ app.group('/customer', configureCustomerRoutes)
 app.get('/hello', async () => {
   api.trace.getTracer('manual').startActiveSpan("/users/random", async (span) => {
     span.setAttribute("http.status", 200);
-
     span.end();
+    
     return new Response("success bro");
   })
 })

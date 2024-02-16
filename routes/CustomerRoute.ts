@@ -10,7 +10,6 @@ import { auth } from "../handler/auth";
 
 
 export function configureCustomerRoutes(app: Elysia) {
-
     app.use(bearer()).use(cookie()).guard({
             async beforeHandle({ bearer, jwt, set}) {
                 const res = await auth(bearer, jwt);
@@ -23,21 +22,12 @@ export function configureCustomerRoutes(app: Elysia) {
     )
 
     app.guard({ body: customerController.validateCreateCustomer }, (guardApp) =>
-            guardApp.post("/", customerController.createCustomer)
-        );
+        guardApp.post("/", customerController.createCustomer)
+    );
 
     app.guard({ body: authController.validateAuth }, (guardApp) =>
         guardApp.post("/auth", authController.auth)
     );
 
     return app
-
-    // return app
-    //     .onError(({ code, error }) => {
-    //         return new Response(error.toString())
-    //     })
-    //     .get("/", customerController.getCustomer)
-    //     .guard({ body: customerController.validateCreateCustomer }, (guardApp) =>
-    //         guardApp.post("/", customerController.createCustomer)
-    //     );
 }
