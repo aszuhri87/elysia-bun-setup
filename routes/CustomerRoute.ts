@@ -1,11 +1,8 @@
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 import { customerController } from "../controllers/CustomerController";
-import * as api from '@opentelemetry/api';
 import { authController } from "../controllers/AuthController";
 import bearer from "@elysiajs/bearer";
 import cookie from "@elysiajs/cookie";
-import jwt from "@elysiajs/jwt";
-import { response } from "../handler/response";
 import { auth } from "../handler/auth";
 
 

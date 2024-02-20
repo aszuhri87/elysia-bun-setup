@@ -33,10 +33,10 @@ export const customerController = {
     createCustomer: async ({ body, set, bearer, jwt }) => {
         const check_user = await auth(bearer, jwt);
 
-        // if(check_user.code == 401){
-        //     set.status = 401;
-        //     return check_user;
-        // }
+        if(check_user.code == 401){
+            set.status = 401;
+            return check_user;
+        }
 
         await db.customer.create({
             data: {

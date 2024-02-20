@@ -13,7 +13,6 @@ import {init}  from "./tracer";
 
 // const tracer = init('elysia-service', 4318) // calling tracer with service name and environment to view in jaegerui
 
-
 import { swagger } from "@elysiajs/swagger";
 import bearer from "@elysiajs/bearer";
 import { auth } from "./handler/auth";
@@ -44,23 +43,10 @@ app.trace(async ({ handle }) => {
   console.log('beforeHandle took', (await end) - time)
 })
 
-app.use(bearer()).use(cookie()).get('/', ({ bearer }) => bearer, {
-  async beforeHandle({ bearer, jwt, set }) {
-    return (await auth(bearer, jwt)).data;
-  }
+app.get('/', () => {
+  return new Response("welcome!");
 })
 
-app.onError(({ code, error }) => {
-  return new Response(error.toString())
-}).get('/rolldice', async() => {
-  api.trace.getTracer('manual').startActiveSpan('/rolldice', async (span) => {
-    span.setAttribute("http.status", 200);
-
-    span.end();
-    return new Response("oke");
-      
-    });
-});
 app.group('/note', configureNotesRoutes);
 app.group('/customer', configureCustomerRoutes)
 
