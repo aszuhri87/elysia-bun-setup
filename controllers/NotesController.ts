@@ -5,7 +5,7 @@ import { response } from "./../handler/response"
 const db = new PrismaClient();
 
 export const notesController = {
-    getNotes: async ({ query }) => {
+    getNotes: async ({ query, set }) => {
         try {
             var result =  db.notes.findMany({
                 where: {
@@ -15,8 +15,10 @@ export const notesController = {
                 }
             });
 
+            set.status = 200;
             return response(await result, "success", 200);
         } catch (error) {
+            set.status = 500;
             return response(null, "error", 500);
         }
     },

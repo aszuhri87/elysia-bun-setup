@@ -4,6 +4,7 @@ export function response(data: any, message: string, code: any) {
         'messsage': message,
         'code': code
     }
+    
 
     return res
 }
